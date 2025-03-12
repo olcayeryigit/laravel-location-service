@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\RouteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,4 @@ Route::delete('/locations/{id}', [LocationController::class, 'destroy']);
 
 
 Route::apiResource('locations', LocationController::class);
+Route::apiResource('routes', RouteController::class);
