@@ -1,4 +1,4 @@
-# Laraverle Location Service
+# Laravel ile Location Service
 
 
 ## Teknolojiler
@@ -7,4 +7,4 @@
 - **MySQL:** Konum verilerinin saklanması için MySQL veritabanı kullanıldı.
 - **Postman:** API testleri için Postman kullanılarak işlevsellik doğrulandı.
 
-![Postman Test - Location Service](images/location-service.png)
+![Postman Test - Location Service](images/location-service-postman.png)
