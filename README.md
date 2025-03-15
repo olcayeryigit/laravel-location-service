@@ -31,8 +31,14 @@ Bu projede, birden fazla konum arasında en uygun rotayı hesaplamak için Haver
 Proje, API isteklerini IP adresi bazında sınırlamak için bir rate limit mekanizması kullanmaktadır. Her IP adresine dakikada 10 istek sınırı konulmuş olup, bu sayede aşırı yüklenmeler ve kötüye kullanım engellenmektedir.
 
 
+
+
+![Postman Test - Location Service](images/location-service-postman-test.png)
+
+
+
 ## Eksiklikler
 Dockerize: Proje, Docker container içinde çalıştırılabilir olmalıdır. Dockerize işlemi kısa süre içinde tamamlanacaktır.
 
 
-![Postman Test - Location Service](images/location-service-postman-test.png)
+Uygulama içi testler de gerçekleştirilerek, projenin tüm işlevselliği doğrulanacaktır.
