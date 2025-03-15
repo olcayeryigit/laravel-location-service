@@ -2,13 +2,16 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap, Tooltip } fro
 import L from "leaflet";
 import { useEffect, useState } from "react";
 import { FaRoute, FaTimes } from "react-icons/fa";
-import axios from "axios"; // Axios'u ekle
+import axios from "axios";
 
 const MapUpdater = ({ center }) => {
   const map = useMap();
   useEffect(() => {
     if (center) {
-      map.setView(center, map.getZoom());
+      map.flyTo(center, map.getZoom(), {
+        animate: true,
+        duration: 1.5, // Animasyon süresi (saniye cinsinden)
+      });
     }
   }, [center, map]);
   return null;
@@ -75,7 +78,7 @@ const Map = ({ locations }) => {
     if (locations.length === 0) return;
 
     try {
-      const startLocationId = locations[0].id; // Başlangıç noktası olarak ilk konumu al
+      const startLocationId = locations[0].id; // İlk konumu başlangıç olarak al
       const response = await axios.post("http://localhost:8000/api/calculate-route", {
         start_location_id: startLocationId,
       });
@@ -83,6 +86,7 @@ const Map = ({ locations }) => {
       if (response.data.route) {
         setRoute(response.data.route);
         setShowRoute(true);
+        console.log(response.data.route);
       }
     } catch (error) {
       console.error("Rota hesaplama hatası:", error);
@@ -92,24 +96,35 @@ const Map = ({ locations }) => {
   return (
     <div className="bg-gray-900 p-6 rounded-xl shadow-lg text-white w-full max-w-4xl mx-auto">
       <div className="flex justify-center my-4 gap-3">
-        <button
-          onClick={fetchRoute}
-          className={`px-5 py-2 flex items-center gap-2 rounded-lg text-white font-semibold transition ${
-            showRoute ? "bg-blue-500 shadow-lg scale-105" : "bg-blue-600 hover:bg-blue-500"
-          }`}
-        >
-          <FaRoute />
-          Calculate Route        </button>
-        <button
-          onClick={() => {
-            setShowRoute(false);
-            setRoute([]);
-          }}
-          className="px-5 py-2 flex items-center gap-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-500 transition"
-        >
-          <FaTimes />
-          Clear Route
-                  </button>
+      <button
+  onClick={fetchRoute}
+  disabled={locations.length === 0 || showRoute} // Eğer konum yoksa veya rota zaten gösteriliyorsa disable et
+  className={`px-5 py-2 flex items-center gap-2 rounded-lg text-white font-semibold transition ${
+    showRoute
+      ? "bg-gray-500 cursor-not-allowed"
+      : "bg-blue-600 hover:bg-blue-500"
+  }`}
+>
+  <FaRoute />
+  Calculate Route
+</button>
+
+<button
+  onClick={() => {
+    setShowRoute(false);
+    setRoute([]);
+  }}
+  disabled={!showRoute} // Eğer rota yoksa buton disabled olsun
+  className={`px-5 py-2 flex items-center gap-2 rounded-lg font-semibold transition ${
+    !showRoute
+      ? "bg-gray-500 cursor-not-allowed"
+      : "bg-red-600 hover:bg-red-500"
+  }`}
+>
+  <FaTimes />
+  Clear Route
+</button>
+
       </div>
 
       <MapContainer center={defaultCenter} zoom={8} className="h-[70vh] w-full rounded-lg shadow-md">

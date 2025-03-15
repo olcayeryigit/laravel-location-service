@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
-use App\Models\Route;
 use Illuminate\Http\Request;
 
 class RouteController extends Controller
@@ -21,10 +20,22 @@ class RouteController extends Controller
             return response()->json(['message' => 'Başlangıç noktasından farklı konumlar bulunamadı.'], 404);
         }
 
-        // Konumları mesafeye göre sıralayarak rota oluştur
-        $route = $locations->sortBy(function ($location) use ($startLocation) {
-            return $this->haversineDistance($startLocation->latitude, $startLocation->longitude, $location->latitude, $location->longitude);
-        });
+        $route = collect([$startLocation]); // Rota başlangıcı
+        $currentLocation = $startLocation;
+
+        while ($locations->isNotEmpty()) {
+            // En yakın noktayı bul
+            $closest = $locations->sortBy(fn ($loc) =>
+                $this->haversineDistance(
+                    $currentLocation->latitude, $currentLocation->longitude,
+                    $loc->latitude, $loc->longitude
+                )
+            )->first();
+
+            $route->push($closest);
+            $locations = $locations->reject(fn ($loc) => $loc->id === $closest->id); // Seçilen konumu listeden çıkar
+            $currentLocation = $closest; // Yeni başlangıç noktası
+        }
 
         return response()->json([
             'start_location' => $startLocation,
@@ -32,7 +43,7 @@ class RouteController extends Controller
         ]);
     }
 
-    // Haversine formülü
+    // Haversine formülü ile mesafe hesaplama
     private function haversineDistance($lat1, $lon1, $lat2, $lon2)
     {
         $earthRadius = 6371; // Dünya yarıçapı (km)
@@ -48,5 +59,4 @@ class RouteController extends Controller
 
         return $earthRadius * $c; // Mesafe (km)
     }
-
-    }
+}

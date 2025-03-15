@@ -21,7 +21,18 @@ Projede daha düzenli ve yönetilebilir bir yapı oluşturmak için **Controller
 Bu proje, Laravel'in **Request Class** yapısını kullanarak validasyonu modüler hale getirir.  
 Validasyon kuralları **app/Http/Requests/** klasöründe tanımlanmıştır.  
 
+## ORM (Eloquent)
+Laravel’in Eloquent ORM yapısı kullanılarak veritabanı işlemleri daha esnek ve yönetilebilir hale getirildi.  
 
- 
+## Rota Hesaplama Yöntemi
+Bu projede, birden fazla konum arasında en uygun rotayı hesaplamak için Haversine Formülünü kullanmaktadır. 
+
+## Rate Limit
+Proje, API isteklerini IP adresi bazında sınırlamak için bir rate limit mekanizması kullanmaktadır. Her IP adresine dakikada 10 istek sınırı konulmuş olup, bu sayede aşırı yüklenmeler ve kötüye kullanım engellenmektedir.
+
+
+## Eksiklikler
+Dockerize: Proje, Docker container içinde çalıştırılabilir olmalıdır. Dockerize işlemi kısa süre içinde tamamlanacaktır.
+
 
 ![Postman Test - Location Service](images/location-service-postman-test.png)

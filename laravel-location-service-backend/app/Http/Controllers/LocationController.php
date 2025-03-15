@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLocationRequest;
+use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Location;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -42,31 +43,24 @@ use Illuminate\Http\Request;
     }
 
 
-     /**
-     * Belirli bir konumu güncelle.
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'marker_color' => 'nullable|string|max:20'
-        ]);
+     
+     // Belirli bir konumu güncelle.
+  public function update(UpdateLocationRequest $request, $id)
+{
+    $location = Location::find($id);
 
-        $location = Location::find($id);
-
-        if (!$location) {
-            return response()->json(['message' => 'Location not found'], 404);
-        }
-
-        $location->update($request->all());
-
-        return response()->json($location);
+    if (!$location) {
+        return response()->json(['message' => 'Location not found'], 404);
     }
 
-    /**
-     * Belirli bir konumu sil.
+    $location->update($request->validated());
+
+    return response()->json($location);
+}
+
+
+ 
+     /* Belirli bir konumu sil.
      */
     public function destroy($id)
     {
