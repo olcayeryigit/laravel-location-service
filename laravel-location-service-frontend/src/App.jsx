@@ -24,16 +24,27 @@ function App() {
   const handleAdd = async (newLocation) => {
     try {
       const response = await axios.post("http://localhost:8000/api/locations", newLocation);
-
-      // UI'de anında güncelleme
+  
       setLocations((prevLocations) => [...prevLocations, response.data]);
-      // API'den tekrar veri çekerek güncel listeyi al
       fetchLocations();
     } catch (error) {
-      console.error("Ekleme hatası:", error);
+      if (error.response && error.response.data.errors) {
+        // Validasyon hatalarını işle
+        const errors = error.response.data.errors;
+        let errorMessage = "";
+  
+        Object.keys(errors).forEach((key) => {
+          errorMessage += `${errors[key].join(" ")}\n`;
+        });
+  
+        alert(errorMessage); // Kullanıcıya göster
+      } else {
+        console.error("Ekleme hatası:", error);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+      }
     }
   };
-
+  
 
   // **Silme işlemi**
   const handleDelete = async (id) => {

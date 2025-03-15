@@ -32,4 +32,4 @@ Route::delete('/locations/{id}', [LocationController::class, 'destroy']);
 
 
 Route::apiResource('locations', LocationController::class);
-Route::apiResource('routes', RouteController::class);
+Route::post('/calculate-route', [RouteController::class, 'calculateRoute']);

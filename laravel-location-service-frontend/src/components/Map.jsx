@@ -99,8 +99,7 @@ const Map = ({ locations }) => {
           }`}
         >
           <FaRoute />
-          Rotayı Hesapla
-        </button>
+          Calculate Route        </button>
         <button
           onClick={() => {
             setShowRoute(false);
@@ -109,8 +108,8 @@ const Map = ({ locations }) => {
           className="px-5 py-2 flex items-center gap-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-500 transition"
         >
           <FaTimes />
-          Rotayı Temizle
-        </button>
+          Clear Route
+                  </button>
       </div>
 
       <MapContainer center={defaultCenter} zoom={8} className="h-[70vh] w-full rounded-lg shadow-md">

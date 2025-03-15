@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\StoreLocationRequest;
 use App\Models\Location;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
  class LocationController extends Controller
@@ -9,20 +12,12 @@ use Illuminate\Http\Request;
    /**
      * Yeni bir lokasyon oluştur.
      */
-    public function store(Request $request)
+    public function store(StoreLocationRequest $request): JsonResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'marker_color' => 'nullable|string|max:20'
-        ]);
-
-        $location = Location::create($request->all());
+        $location = Location::create($request->validated());
 
         return response()->json($location, 201);
-    }   
-    
+    }
     
       /**
      * Tüm konumları getir.
