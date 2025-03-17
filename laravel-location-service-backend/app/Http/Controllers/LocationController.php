@@ -4,74 +4,75 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLocationRequest;
 use App\Http\Requests\UpdateLocationRequest;
-use App\Models\Location;
+use App\Services\LocationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
- class LocationController extends Controller
+class LocationController extends Controller
 {
-   /**
+    protected LocationService $locationService;
+
+    public function __construct(LocationService $locationService)
+    {
+        $this->locationService = $locationService;
+    }
+
+    /**
      * Yeni bir lokasyon oluştur.
      */
     public function store(StoreLocationRequest $request): JsonResponse
     {
-        $location = Location::create($request->validated());
+        $location = $this->locationService->create($request->validated());
 
         return response()->json($location, 201);
     }
-    
-      /**
+
+    /**
      * Tüm konumları getir.
      */
-    public function index(){
-        $locations=Location::all();
+    public function index(): JsonResponse
+    {
+        $locations = $this->locationService->getAll();
         return response()->json($locations);
     }
 
     /**
      * Belirli bir konumu getir.
      */
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        $location = Location::find($id);
-
-        if (!$location) {
-            return response()->json(['message' => 'Location not found'], 404);
+        try {
+            $location = $this->locationService->getById($id);
+            return response()->json($location);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => $e->getMessage()], 404);
         }
-
-        return response()->json($location);
     }
 
-
-     
-     // Belirli bir konumu güncelle.
-  public function update(UpdateLocationRequest $request, $id)
-{
-    $location = Location::find($id);
-
-    if (!$location) {
-        return response()->json(['message' => 'Location not found'], 404);
-    }
-
-    $location->update($request->validated());
-
-    return response()->json($location);
-}
-
-
- 
-     /* Belirli bir konumu sil.
+    /**
+     * Belirli bir konumu güncelle.
      */
-    public function destroy($id)
+    public function update(UpdateLocationRequest $request, $id): JsonResponse
     {
-        $location = Location::find($id);
-
-        if (!$location) {
-            return response()->json(['message' => 'Location not found'], 404);
+        try {
+            $location = $this->locationService->update($id, $request->validated());
+            return response()->json($location);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => $e->getMessage()], 404);
         }
+    }
 
-        $location->delete();
-
-        return response()->json(['message' => 'Location deleted successfully']);
+    /**
+     * Belirli bir konumu sil.
+     */
+    public function destroy($id): JsonResponse
+    {
+        try {
+            $this->locationService->delete($id);
+            return response()->json(['message' => 'Location deleted successfully']);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => $e->getMessage()], 404);
+        }
     }
 }

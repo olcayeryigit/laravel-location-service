@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Rate limiting tanımlaması
+        // Özel Rate limiting tanımlaması
       
 RateLimiter::for('api', function (Request $request) {
     // İstekleri IP adresine göre sınırlıyoruz
