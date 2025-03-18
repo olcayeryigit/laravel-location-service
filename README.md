@@ -4,7 +4,7 @@
 ## Teknolojiler
 
 
-Backend Teknolojileri
+### Backend Teknolojileri
 
 - **Laravel:** API geliştirme için Laravel kullanıldı.
 - **MySQL:** Konum verilerinin saklanması için MySQL veritabanı kullanıldı.
@@ -17,7 +17,7 @@ Backend Teknolojileri
 
 
 
-Frontend Teknolojileri
+### Frontend Teknolojileri
 
 - **React & Tailwind CSS:** Kullanıcı arayüzü için modern ve şık bir tasarım sağlandı.
 - **Leaflet:** Harita ve konum bazlı gösterimler için Leaflet kütüphanesi kullanıldı.
@@ -34,7 +34,7 @@ Frontend Teknolojileri
 ## Postman Testleri
 ![Postman Test - Location Service](images/location-service-postman-test.png)
 
-## Uygulama Görselleri
+## Uygulama Ekran Görüntüleri
 ![Masaüstü Uygulama Görüntüsü- Location Service](images/location-service-masaüstü.png)
 ![Mobil Uygulama Görüntüsü- Location Service](images/location-service-mobil.png)
 
