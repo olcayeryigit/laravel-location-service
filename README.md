@@ -3,38 +3,40 @@
 
 ## Teknolojiler
 
+
+Backend Teknolojileri
+
 - **Laravel:** API geliştirme için Laravel kullanıldı.
 - **MySQL:** Konum verilerinin saklanması için MySQL veritabanı kullanıldı.
+- **Eloquent ORM:** Veritabanı işlemleri için kullanıldı.
+- **Service Katmanı:** İş mantığını ayrıştırarak daha modüler bir yapı sağlandı.
+- **Request Class:** Validasyonu merkezi hale getirerek güvenliği artırdı.
+- **Rate Limiting:** API isteklerini IP bazlı sınırlayarak kötüye kullanımı önledi.
+- **Haversine Formülü:** En uygun rota hesaplaması için kullanıldı.
 - **Postman:** API testleri için Postman kullanılarak işlevsellik doğrulandı.
-- **React** Kullanıcı arayüzü geliştirmek için React kullanıldı.
-- **Tailwind CSS:** Şık ve modern bir tasarım için Tailwind CSS kullanıldı.
+
+
+
+Frontend Teknolojileri
+
+- **React & Tailwind CSS:** Kullanıcı arayüzü için modern ve şık bir tasarım sağlandı.
 - **Leaflet:** Harita ve konum bazlı gösterimler için Leaflet kütüphanesi kullanıldı.
-- **Axios:** Axios: API isteklerini yönetmek için Axios kullanıldı.
+- **Axios:** API isteklerini yönetmek için kullanıldı.
 - **React Icons:** UI'yi geliştirmek için React Icons ile ikon desteği sağlandı.  
-
-## Katmanlı Mimari  
-
-Projede daha düzenli ve yönetilebilir bir yapı oluşturmak için **Controller, Model ve Request katmanları** kullanıldı. 
-
-## Validasyon Katmanı  
-
-Bu proje, Laravel'in **Request Class** yapısını kullanarak validasyonu modüler hale getirir.  
-Validasyon kuralları **app/Http/Requests/** klasöründe tanımlanmıştır.  
-
-## ORM (Eloquent)
-Laravel’in Eloquent ORM yapısı kullanılarak veritabanı işlemleri daha esnek ve yönetilebilir hale getirildi.  
-
-## Rota Hesaplama Yöntemi
-Bu projede, birden fazla konum arasında en uygun rotayı hesaplamak için Haversine Formülünü kullanmaktadır. 
-
-## Rate Limit
-Proje, API isteklerini IP adresi bazında sınırlamak için bir rate limit mekanizması kullanmaktadır. Her IP adresine dakikada 10 istek sınırı konulmuş olup, bu sayede aşırı yüklenmeler ve kötüye kullanım engellenmektedir.
+- **React Color Picker** Kullanıcının konum işaretleyicisi için renk seçmesine olanak tanıyan bir renk seçici (Color Picker) eklendi.
+- **useMemo:** LocationList’in gereksiz render edilmesini önleyerek performans iyileştirildi.
+- **Spinner:** LocationList yüklenirken kullanıcıya bilgi vermek için eklendi.
+- **Responsive Tasarım:** Arayüz, tüm ekran boyutlarına uyum sağlayacak şekilde optimize edildi
 
 
 
 
+## Postman Testleri
 ![Postman Test - Location Service](images/location-service-postman-test.png)
 
+## Uygulama Görselleri
+![Masaüstü Uygulama Görüntüsü- Location Service](images/location-service-masaüstü.png)
+![Mobil Uygulama Görüntüsü- Location Service](images/location-service-mobil.png)
 
 
 ## Eksiklikler
