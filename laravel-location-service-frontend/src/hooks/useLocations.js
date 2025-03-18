@@ -3,6 +3,7 @@ import { getLocations, addLocation, deleteLocation, updateLocation } from "../se
 
 const useLocations = () => {
   const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(true); // Spinner için loading durumu
 
   useEffect(() => {
     fetchLocations();
@@ -10,10 +11,13 @@ const useLocations = () => {
 
   const fetchLocations = async () => {
     try {
+      setLoading(true); // Veriler çekilirken loading aktif
       const data = await getLocations();
       setLocations(data);
     } catch (error) {
       console.error("Error fetching locations:", error);
+    } finally {
+      setLoading(false); // İşlem bitince loading kapatılır
     }
   };
 
@@ -33,14 +37,11 @@ const useLocations = () => {
   };
 
   const handleEdit = async (updatedLocation) => {
-    setLocations((prev) =>
-      prev.map((loc) => (loc.id === updatedLocation.id ? updatedLocation : loc))
-    );
     await updateLocation(updatedLocation);
     fetchLocations();
   };
 
-  return { locations, handleAdd, handleDelete, handleEdit };
+  return { locations, handleAdd, handleDelete, handleEdit, loading };
 };
 
 export default useLocations;

@@ -22,13 +22,13 @@ const Map = ({ locations }) => {
   }, [locations]);
 
   return (
-    <div className="bg-gray-900 p-6 rounded-2xl shadow-xl text-white w-full max-w-4xl mx-auto">
-      <h2 className="text-xl font-bold text-center mb-4">Location Service</h2>
+    <div className="bg-gray-900 p-5 rounded-2xl shadow-xl text-white w-full">
+      <h2 className="text-lg font-bold text-center mb-4">Location Service</h2>
 
       <RouteButtons fetchRoute={fetchRoute} clearRoute={clearRoute} showRoute={showRoute} locations={locations} />
 
       <div className="overflow-hidden rounded-2xl shadow-lg border border-gray-700">
-        <MapContainer center={defaultCenter} zoom={8} className="h-[70vh] w-full">
+        <MapContainer center={defaultCenter} zoom={8} className="h-[26rem] w-full">
           <MapUpdater center={lastLocation} />
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
